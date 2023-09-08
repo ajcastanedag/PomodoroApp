@@ -4,7 +4,7 @@ Bardodoro is your go-to web-based Pomodoro app for boosting productivity and mas
 
 ## Key Features
 
-- **Effortless Timer**: Start and stop your Pomodoro sessions with a simple click. Bardodoro keeps you on track, just like a conductor guiding an orchestra.
+- **Effortless Timer**: Start and stop your Pomodoro sessions with a simple click. Bardodoro keeps you on track.
 
 - **Task Categories**: Organize your work efficiently by categorizing tasks. Whether it's work, study, or personal projects, you can easily classify them to stay organized.
 
