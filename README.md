@@ -2,6 +2,8 @@
 
 Bardodoro is your go-to web-based Pomodoro app for boosting productivity and mastering the art of focused work. Inspired by the Pomodoro Technique, pioneered by Francesco Cirillo in the late 1980s, Bardodoro helps you break your work into manageable intervals, typically 25 minutes (a Pomodoro), followed by a short 5-minute break.
 
+[](https://github.com/ajcastanedag/PomodoroApp/blob/main/Capture.png?raw=true)
+
 ## Key Features
 
 - **Effortless Timer**: Start and stop your Pomodoro sessions with a simple click. Bardodoro keeps you on track.
