@@ -7,6 +7,7 @@ let breakTime = 5 * 60; // Initial break time in seconds (5 minutes)
 
 const timerDisplay = document.getElementById('timer');
 const startButton = document.getElementById('startButton');
+const pauseButton = document.getElementById('pauseButton');
 const stopButton = document.getElementById('stopButton');
 const workTimeInput = document.getElementById('workTime');
 const breakTimeInput = document.getElementById('breakTime');
@@ -24,6 +25,7 @@ breakTimeInput.addEventListener('input', () => {
 });
 
 startButton.addEventListener('click', startTimer);
+pauseButton.addEventListener('click', pauseTimer);
 stopButton.addEventListener('click', stopTimer);
 
 function startTimer() {
@@ -41,7 +43,16 @@ function startTimer() {
         }, 1000);
 
         startButton.disabled = true;
-        stopButton.disabled = false;
+        pauseButton.disabled = false;
+    }
+}
+
+function pauseTimer() {
+    if (isRunning) {
+        isRunning = false;
+        clearInterval(timer);
+        startButton.disabled = false;
+        pauseButton.disabled = true;
     }
 }
 
@@ -50,14 +61,20 @@ function stopTimer() {
         isRunning = false;
         clearInterval(timer);
         startButton.disabled = false;
-        stopButton.disabled = true;
+        pauseButton.disabled = true;
+        stopButton.disabled = true; // Disable the "Stop" button
+        resetTimer();
     }
 }
 
 function resetTimer() {
-    stopTimer();
     workTime = workTimeInput.value * 60;
     displayTimeLeft(workTime);
+    
+    // Enable the buttons
+    startButton.disabled = false;
+    pauseButton.disabled = true;
+    stopButton.disabled = true; // Keep the "Stop" button disabled initially
 }
 
 function displayTimeLeft(timeInSeconds) {
@@ -84,11 +101,12 @@ settingsIcon.addEventListener('click', () => {
 startButton.addEventListener('click', () => {
     startTimer();
     startButton.classList.add('button-disabled'); // Gray out the Start button
-    stopButton.classList.remove('button-disabled'); // Remove gray-out from Stop button
+    pauseButton.classList.remove('button-disabled'); // Remove gray-out from Stop button
 });
 
-stopButton.addEventListener('click', () => {
-    stopTimer();
-    stopButton.classList.add('button-disabled'); // Gray out the Stop button
+pauseButton.addEventListener('click', () => {
+    pauseTimer();
+    pauseButton.classList.add('button-disabled'); // Gray out the Stop button
     startButton.classList.remove('button-disabled'); // Remove gray-out from Start button
 });
+z
