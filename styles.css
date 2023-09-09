@@ -8,6 +8,7 @@ html, body {
 body {
     background-color: rgb(237, 92, 78);
     color: white; /* Set text color to white */
+    font-family: Tahoma, sans-serif; /* Set font family to Tahoma */
 }
 
 /* Style the settings panel */
@@ -25,6 +26,7 @@ body {
     overflow-y: auto; /* Enable vertical scrolling if needed */
     display: flex;
     flex-direction: column;
+    font-family: Tahoma, sans-serif; /* Set font family to Tahoma */
 }
 
 .settings-panel.show {

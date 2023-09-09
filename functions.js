@@ -44,6 +44,10 @@ function startTimer() {
 
         startButton.disabled = true;
         pauseButton.disabled = false;
+        stopButton.disabled = false;
+
+        // Update the settings icon visibility
+        updateSettingsIconVisibility();
     }
 }
 
@@ -51,30 +55,29 @@ function pauseTimer() {
     if (isRunning) {
         isRunning = false;
         clearInterval(timer);
-        startButton.disabled = false;
-        pauseButton.disabled = true;
     }
+    startButton.disabled = false;
+    pauseButton.disabled = true;
+    stopButton.disabled = false;
 }
 
 function stopTimer() {
-    if (isRunning) {
-        isRunning = false;
-        clearInterval(timer);
-        startButton.disabled = false;
-        pauseButton.disabled = true;
-        stopButton.disabled = true; // Disable the "Stop" button
-        resetTimer();
-    }
+    isRunning = false;
+    clearInterval(timer);
+    startButton.disabled = false;
+    pauseButton.disabled = false;
+    stopButton.disabled = true;
+    startButton.classList.remove('button-active');
+    pauseButton.classList.remove('button-active');
+    resetTimer();
+
+    // Update the settings icon visibility
+    updateSettingsIconVisibility();
 }
 
 function resetTimer() {
     workTime = workTimeInput.value * 60;
     displayTimeLeft(workTime);
-    
-    // Enable the buttons
-    startButton.disabled = false;
-    pauseButton.disabled = true;
-    stopButton.disabled = true; // Keep the "Stop" button disabled initially
 }
 
 function displayTimeLeft(timeInSeconds) {
@@ -90,7 +93,7 @@ displayTimeLeft(workTime);
 // JavaScript code for toggling the settings panel visibility
 const settingsPanel = document.getElementById('settingsPanel');
 const settingsIcon = document.getElementById('settingsIcon');
-const closeSettings = document.getElementById('closeSettings'); // New arrow element
+
 
 settingsIcon.addEventListener('click', () => {
     settingsPanel.classList.toggle('show'); // Toggle the 'show' class
@@ -109,4 +112,17 @@ pauseButton.addEventListener('click', () => {
     pauseButton.classList.add('button-disabled'); // Gray out the Stop button
     startButton.classList.remove('button-disabled'); // Remove gray-out from Start button
 });
-z
+
+stopButton.addEventListener('click', () => {
+    stopTimer();
+    startButton.classList.remove('button-disabled'); // Gray out the Stop button
+    pauseButton.classList.remove('button-disabled'); // Remove gray-out from Start button
+});
+
+// Update the settings icon visibility when the timer starts or stops
+function updateSettingsIconVisibility() {
+    settingsIcon.style.display = isRunning ? 'none' : 'block';
+}
+
+// Call the function to initially set the visibility based on the initial isRunning value
+updateSettingsIconVisibility();
