@@ -1,11 +1,10 @@
-// script.js
-
 let timer;
 let isRunning = false;
 let workTime = 25 * 60; // Initial work time in seconds (25 minutes)
 let breakTime = 5 * 60; // Initial break time in seconds (5 minutes)
 
-const timerDisplay = document.getElementById('timer');
+const timerDisplay = document.getElementById('timerWork');
+const restDisplay = document.getElementById('timeBreak');
 const startButton = document.getElementById('startButton');
 const pauseButton = document.getElementById('pauseButton');
 const stopButton = document.getElementById('stopButton');
@@ -105,6 +104,8 @@ startButton.addEventListener('click', () => {
     startTimer();
     startButton.classList.add('button-disabled'); // Gray out the Start button
     pauseButton.classList.remove('button-disabled'); // Remove gray-out from Stop button
+    // Hide the settings panel
+    settingsPanel.classList.remove('show');
 });
 
 pauseButton.addEventListener('click', () => {
@@ -126,3 +127,4 @@ function updateSettingsIconVisibility() {
 
 // Call the function to initially set the visibility based on the initial isRunning value
 updateSettingsIconVisibility();
+
