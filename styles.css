@@ -11,6 +11,11 @@ body {
     font-family: Tahoma, sans-serif; /* Set font family to Tahoma */
 }
 
+.green-background {
+    background-color: rgb(57, 138, 55);
+    color: white; /* You can adjust the text color for better visibility */
+}
+
 /* Style the settings panel */
 .settings-panel {
     position: fixed;

@@ -4,7 +4,6 @@ let workTime = 25 * 60; // Initial work time in seconds (25 minutes)
 let breakTime = 5 * 60; // Initial break time in seconds (5 minutes)
 
 const timerDisplay = document.getElementById('timerWork');
-const restDisplay = document.getElementById('timeBreak');
 const startButton = document.getElementById('startButton');
 const pauseButton = document.getElementById('pauseButton');
 const stopButton = document.getElementById('stopButton');
@@ -18,11 +17,6 @@ workTimeInput.addEventListener('input', () => {
     displayTimeLeft(workTime);
 });
 
-breakTimeInput.addEventListener('input', () => {
-    breakTime = breakTimeInput.value * 60;
-    displayTimeLeft(breakTime); 
-});
-
 startButton.addEventListener('click', startTimer);
 pauseButton.addEventListener('click', pauseTimer);
 stopButton.addEventListener('click', stopTimer);
@@ -30,16 +24,20 @@ stopButton.addEventListener('click', stopTimer);
 function startTimer() {
     if (!isRunning) {
         isRunning = true;
-        timer = setInterval(() => {
-            workTime--;
-            displayTimeLeft(workTime);
-
-            if (workTime === 0) {
-                clearInterval(timer);
-                alert('Time to take a break!');
-                resetTimer();
-            }
-        }, 1000);
+        if (workTime > 0) {
+            timer = setInterval(() => {
+                workTime--;
+                displayTimeLeft(workTime);
+                if (workTime === 0) {
+                    clearInterval(timer);
+                    resetTimer();
+                    // Automatically start the break timer
+                    startBreakTimer();
+                }
+            }, 1000);
+        } else if (breakTime > 0) {
+            startBreakTimer();
+        }
 
         startButton.disabled = true;
         pauseButton.disabled = false;
@@ -86,13 +84,39 @@ function displayTimeLeft(timeInSeconds) {
     timerDisplay.textContent = display;
 }
 
+function startBreakTimer() {
+    
+    // Add the green background class to the body
+    document.body.classList.add('green-background');
+
+    startButton.disabled = true;
+    pauseButton.disabled = true;
+    stopButton.disabled = true;
+
+    timer = setInterval(() => {
+        breakTime--;
+        displayTimeLeft(breakTime);
+        if (breakTime === 0) {
+            clearInterval(timer);
+            alert('Break time is over!');
+            resetTimer();
+            // Remove the green background class when the break ends
+            document.body.classList.remove('green-background');
+
+            startButton.disabled = false;
+            pauseButton.disabled = false;
+            stopButton.disabled = false;
+        }
+    }, 1000);
+}
+
+
 // Initialize the timer display
 displayTimeLeft(workTime);
 
 // JavaScript code for toggling the settings panel visibility
 const settingsPanel = document.getElementById('settingsPanel');
 const settingsIcon = document.getElementById('settingsIcon');
-
 
 settingsIcon.addEventListener('click', () => {
     settingsPanel.classList.toggle('show'); // Toggle the 'show' class
